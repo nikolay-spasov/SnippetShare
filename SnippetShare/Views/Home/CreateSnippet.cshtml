@@ -1,0 +1,18 @@
+﻿@model SnippetShare.Models.CreateSnippetVM
+@{
+    ViewBag.Title = "CreateSnippet";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.LabelFor(m => m.Content)
+        @Html.EditorFor(m => m.Content)
+    </div>
+    <div>
+        @Html.ValidationMessageFor(m => m.Content)
+    </div>
+
+    <input type="submit" value="Post" />
+}
