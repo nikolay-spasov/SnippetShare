@@ -1,13 +1,13 @@
-﻿using WebMatrix.WebData;
-
-namespace SnippetShare.App_Start
+﻿namespace SnippetShare.App_Start
 {
+    using WebMatrix.WebData;
+
     public class WebSecurityInitializer
     {
         public static readonly WebSecurityInitializer Instance = new WebSecurityInitializer();
 
-        private bool isNotInit = true;
         private readonly object syncRoot = new object();
+        private bool isNotInit = true;
 
         private WebSecurityInitializer()
         {
@@ -15,15 +15,19 @@ namespace SnippetShare.App_Start
 
         public void EnsureInitialize()
         {
-            if (isNotInit)
+            if (this.isNotInit)
             {
                 lock (this.syncRoot)
                 {
-                    if (isNotInit)
+                    if (this.isNotInit)
                     {
-                        isNotInit = false;
-                        WebSecurity.InitializeDatabaseConnection("DefaultConnection",
-                            "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                        this.isNotInit = false;
+                        WebSecurity.InitializeDatabaseConnection(
+                            "DefaultConnection",
+                            "UserProfile", 
+                            "UserId", 
+                            "UserName", 
+                            autoCreateTables: true);
                     }
                 }
             }

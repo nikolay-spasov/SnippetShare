@@ -1,15 +1,13 @@
-﻿using SnippetShare.DataAccess;
-using SnippetShare.DataAccess.Entities;
-using SnippetShare.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using WebMatrix.WebData;
-
-namespace SnippetShare.Controllers
+﻿namespace SnippetShare.Controllers
 {
+    using System;
+    using System.Linq;
+    using System.Web.Mvc;
+    using SnippetShare.DataAccess;
+    using SnippetShare.DataAccess.Entities;
+    using SnippetShare.Models;
+    using WebMatrix.WebData;
+
     public class HomeController : Controller
     {
         private SnippetShareDbContext db = new SnippetShareDbContext();
@@ -43,8 +41,8 @@ namespace SnippetShare.Controllers
                     snippet.UserId = WebSecurity.CurrentUserId;
                 }
 
-                db.Snippets.Add(snippet);
-                db.SaveChanges();
+                this.db.Snippets.Add(snippet);
+                this.db.SaveChanges();
 
                 return RedirectToAction("Show", new { id = snippet.Id });
             }
@@ -56,7 +54,7 @@ namespace SnippetShare.Controllers
 
         public ActionResult Show(int id)
         {
-            Snippet snippet = db.Snippets.Include("User").FirstOrDefault(x => x.Id == id);
+            Snippet snippet = this.db.Snippets.Include("User").FirstOrDefault(x => x.Id == id);
 
             ShowVM viewModel = new ShowVM
             {

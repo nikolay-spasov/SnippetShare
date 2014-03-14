@@ -185,29 +185,41 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\WebSecurityInitializer.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AccountController.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataAccess\Entities\Snippet.cs" />
     <Compile Include="DataAccess\Entities\UserProfile.cs" />
     <Compile Include="HtmlHelpers\FriendlyDate.cs" />
-    <Compile Include="Migrations\201403121149251_reInitial.cs" />
+    <Compile Include="Migrations\201403121149251_reInitial.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Migrations\201403121149251_reInitial.Designer.cs">
       <DependentUpon>201403121149251_reInitial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201403121156481_snippetAuthorCanBeNull.cs" />
+    <Compile Include="Migrations\201403121156481_snippetAuthorCanBeNull.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Migrations\201403121156481_snippetAuthorCanBeNull.Designer.cs">
       <DependentUpon>201403121156481_snippetAuthorCanBeNull.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\Configuration.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="DataAccess\SnippetShareDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201403121130041_initial.cs" />
+    <Compile Include="Migrations\201403121130041_initial.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Migrations\201403121130041_initial.Designer.cs">
       <DependentUpon>201403121130041_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\AccountModels.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Models\CreateSnippetVM.cs" />
     <Compile Include="Models\ShowVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

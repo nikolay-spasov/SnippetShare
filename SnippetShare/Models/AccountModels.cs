@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Globalization;
-using System.Web.Security;
-
-namespace SnippetShare.Models
+﻿namespace SnippetShare.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class RegisterExternalLoginModel
     {
         [Required]

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-
-namespace SnippetShare.Models
+﻿namespace SnippetShare.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class CreateSnippetVM
     {
         [Required(ErrorMessage = "Snippet content is required")]

@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Transactions;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Security;
-using DotNetOpenAuth.AspNet;
-using Microsoft.Web.WebPages.OAuth;
-using WebMatrix.WebData;
-using SnippetShare.Models;
-using SnippetShare.DataAccess;
-using SnippetShare.DataAccess.Entities;
-
-namespace SnippetShare.Controllers
+﻿namespace SnippetShare.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Transactions;
+    using System.Web.Mvc;
+    using System.Web.Security;
+    using DotNetOpenAuth.AspNet;
+    using Microsoft.Web.WebPages.OAuth;
+    using WebMatrix.WebData;
+    using SnippetShare.Models;
+    using SnippetShare.DataAccess;
+    using SnippetShare.DataAccess.Entities;
+
     [Authorize]
     public class AccountController : Controller
     {
-        //
         // GET: /Account/Login
 
         [AllowAnonymous]
@@ -27,7 +25,6 @@ namespace SnippetShare.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Login
 
         [HttpPost]
@@ -41,11 +38,10 @@ namespace SnippetShare.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError(string.Empty, "The user name or password provided is incorrect.");
             return View(model);
         }
 
-        //
         // POST: /Account/LogOff
 
         [HttpPost]
@@ -57,7 +53,6 @@ namespace SnippetShare.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //
         // GET: /Account/Register
 
         [AllowAnonymous]
@@ -66,7 +61,6 @@ namespace SnippetShare.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Register
 
         [HttpPost]
@@ -85,7 +79,7 @@ namespace SnippetShare.Controllers
                 }
                 catch (MembershipCreateUserException e)
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    ModelState.AddModelError(string.Empty, ErrorCodeToString(e.StatusCode));
                 }
             }
 
@@ -93,7 +87,6 @@ namespace SnippetShare.Controllers
             return View(model);
         }
 
-        //
         // POST: /Account/Disassociate
 
         [HttpPost]
@@ -122,7 +115,6 @@ namespace SnippetShare.Controllers
             return RedirectToAction("Manage", new { Message = message });
         }
 
-        //
         // GET: /Account/Manage
 
         public ActionResult Manage(ManageMessageId? message)
@@ -131,13 +123,12 @@ namespace SnippetShare.Controllers
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : "";
+                : string.Empty;
             ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.ReturnUrl = Url.Action("Manage");
             return View();
         }
 
-        //
         // POST: /Account/Manage
 
         [HttpPost]
@@ -168,7 +159,7 @@ namespace SnippetShare.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                        ModelState.AddModelError(string.Empty, "The current password is incorrect or the new password is invalid.");
                     }
                 }
             }
@@ -191,7 +182,9 @@ namespace SnippetShare.Controllers
                     }
                     catch (Exception)
                     {
-                        ModelState.AddModelError("", String.Format("Unable to create local account. An account with the name \"{0}\" may already exist.", User.Identity.Name));
+                        ModelState.AddModelError(string.Empty, 
+                            string.Format("Unable to create local account. An account with the name \"{0}\" may already exist.", 
+                            User.Identity.Name));
                     }
                 }
             }
@@ -200,7 +193,6 @@ namespace SnippetShare.Controllers
             return View(model);
         }
 
-        //
         // POST: /Account/ExternalLogin
 
         [HttpPost]
@@ -211,7 +203,6 @@ namespace SnippetShare.Controllers
             return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
         }
 
-        //
         // GET: /Account/ExternalLoginCallback
 
         [AllowAnonymous]
@@ -244,7 +235,6 @@ namespace SnippetShare.Controllers
             }
         }
 
-        //
         // POST: /Account/ExternalLoginConfirmation
 
         [HttpPost]
@@ -290,7 +280,6 @@ namespace SnippetShare.Controllers
             return View(model);
         }
 
-        //
         // GET: /Account/ExternalLoginFailure
 
         [AllowAnonymous]
