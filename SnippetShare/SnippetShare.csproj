@@ -189,6 +189,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataAccess\Entities\Snippet.cs" />
     <Compile Include="DataAccess\Entities\UserProfile.cs" />
+    <Compile Include="HtmlHelpers\FriendlyDate.cs" />
     <Compile Include="Migrations\201403121149251_reInitial.cs" />
     <Compile Include="Migrations\201403121149251_reInitial.Designer.cs">
       <DependentUpon>201403121149251_reInitial.cs</DependentUpon>

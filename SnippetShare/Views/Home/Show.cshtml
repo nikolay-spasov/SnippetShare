@@ -5,7 +5,7 @@
 
 <h2>Show</h2>
 @Html.DisplayFor(m => m.Content)
-@Html.DisplayFor(m => m.DatePublished)
+@Html.ToFriendlyDate(Model.DatePublished)
 
 @section Scripts {
     @Scripts.Render("~/bundles/prettifier")
