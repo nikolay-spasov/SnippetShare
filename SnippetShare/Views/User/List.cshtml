@@ -1,0 +1,12 @@
+﻿@model List<SnippetShare.Models.SnippetListVM>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>My Snippets</h2>
+
+@foreach (var snippet in Model)
+{
+    <h3>@Html.ActionLink(snippet.Title, "Show", "Home", new { id = snippet.Id }, null)</h3>
+    <span>Posted @Html.ToFriendlyDate(snippet.DatePublished)</span>
+}

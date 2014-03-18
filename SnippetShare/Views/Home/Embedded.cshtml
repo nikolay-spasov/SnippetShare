@@ -1,0 +1,17 @@
+﻿@model string
+
+@{
+    Layout = "~/Views/Shared/_EmbeddedLayout.cshtml";
+    ViewBag.Title = "Embedded";
+}
+
+@Html.DisplayFor(m => Model, "_SnippetContent")
+
+@section Scripts {
+    @Scripts.Render("~/bundles/prettifier")
+    <script>
+        window.onload = function () {
+            prettyPrint();
+        };
+    </script>
+}

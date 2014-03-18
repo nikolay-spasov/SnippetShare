@@ -1,0 +1,35 @@
+﻿@model SnippetShare.Models.EditVM
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.LabelFor(m => m.Title)
+        @Html.EditorFor(m => m.Title)
+    </div>
+    <div>
+        @Html.ValidationMessageFor(m => m.Title)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Content)
+        @Html.EditorFor(m => m.Content)
+    </div>
+    <div>
+        @Html.ValidationMessageFor(m => m.Content)
+    </div>
+
+    <input type="submit" value="Edit" />
+}
+
+@{ Html.RenderPartial("_PreviewSnippet"); }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/prettifier")
+    <script src="~/Scripts/snippet/previewSnippet.js"></script>
+    <script src="~/Scripts/snippet/taboverride.min.js"></script>
+    <script src="~/Scripts/snippet/editor.js"></script>
+}

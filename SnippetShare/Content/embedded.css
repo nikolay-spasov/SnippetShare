@@ -1,0 +1,18 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+}
+
+.snippet {
+    padding: 0;
+    margin: 0;
+    /*max-width: 800px;
+    max-height: 600px;
+    overflow: auto;*/
+    background-color: white;
+}
+
+.prettyprint code {
+    font-size: 0.8em;
+    font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+}

@@ -3,9 +3,22 @@
     ViewBag.Title = "Show";
 }
 
-<h2>Show</h2>
+<h3>@Model.TitleToShow</h3>
+
 @Html.DisplayFor(m => m.Content)
-@Html.ToFriendlyDate(Model.DatePublished)
+<div>
+    Posted @Html.ToFriendlyDate(Model.DatePublished)
+    by <span id="author-name">@Model.FriendlyUserName</span>
+</div>
+
+@if (User.Identity.IsAuthenticated && User.Identity.Name == Model.UserName)
+{
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+}
+@Html.ActionLink("Raw", "Raw", new { id = Model.Id })
+
+@Html.Label("Embedding code:")
+@Html.ShowEmbeddedCode(Url.Action("Embedded", "Home", new { id = Model.Id }, Request.Url.Scheme))
 
 @section Scripts {
     @Scripts.Render("~/bundles/prettifier")

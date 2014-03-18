@@ -9,6 +9,8 @@
         [HiddenInput]
         public int Id { get; set; }
 
+        public string Title { get; set; }
+
         [UIHint("_SnippetContent")]
         public string Content { get; set; }
 
@@ -31,6 +33,21 @@
                 else
                 {
                     return this.UserName;
+                }
+            }
+        }
+
+        public string TitleToShow
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.Title))
+                {
+                    return "Untitled";
+                }
+                else
+                {
+                    return this.Title;
                 }
             }
         }

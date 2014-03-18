@@ -13,7 +13,7 @@
         <header>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
+                    <p class="site-title">@Html.ActionLink("SnippetShare", "CreateSnippet", "Home")</p>
                 </div>
                 <div class="float-right">
                     <section id="login">
@@ -21,8 +21,11 @@
                     </section>
                     <nav>
                         <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("Create snippet", "CreateSnippet", "Home")</li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li>@Html.ActionLink("My snippets", "List", "User")</li>
+                            }
                         </ul>
                     </nav>
                 </div>

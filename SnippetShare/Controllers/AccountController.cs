@@ -10,8 +10,8 @@
     using Microsoft.Web.WebPages.OAuth;
     using WebMatrix.WebData;
     using SnippetShare.Models;
-    using SnippetShare.DataAccess;
-    using SnippetShare.DataAccess.Entities;
+    using SnippetShare.Domain;
+    using SnippetShare.Domain.Entities;
 
     [Authorize]
     public class AccountController : Controller
@@ -50,7 +50,7 @@
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("CreateSnippet", "Home");
         }
 
         // GET: /Account/Register
@@ -75,7 +75,7 @@
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("CreateSnippet", "Home");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -326,7 +326,7 @@
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("CreateSnippet", "Home");
             }
         }
 

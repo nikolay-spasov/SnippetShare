@@ -41,12 +41,16 @@
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -189,42 +193,27 @@
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DataAccess\Entities\Snippet.cs" />
-    <Compile Include="DataAccess\Entities\UserProfile.cs" />
-    <Compile Include="HtmlHelpers\FriendlyDate.cs" />
-    <Compile Include="Migrations\201403121149251_reInitial.cs">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Migrations\201403121149251_reInitial.Designer.cs">
-      <DependentUpon>201403121149251_reInitial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201403121156481_snippetAuthorCanBeNull.cs">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Migrations\201403121156481_snippetAuthorCanBeNull.Designer.cs">
-      <DependentUpon>201403121156481_snippetAuthorCanBeNull.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="DataAccess\SnippetShareDbContext.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Helpers\EmbeddedLinks.cs" />
+    <Compile Include="Helpers\FriendlyDate.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201403121130041_initial.cs">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Migrations\201403121130041_initial.Designer.cs">
-      <DependentUpon>201403121130041_initial.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Instrastructure\IWebSecurity.cs" />
+    <Compile Include="Instrastructure\NinjectControllerFactory.cs" />
+    <Compile Include="Instrastructure\WebSecurityWrapper.cs" />
     <Compile Include="Models\AccountModels.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Models\CreateSnippetVM.cs" />
+    <Compile Include="Models\EditVM.cs" />
+    <Compile Include="Models\PreviewVM.cs" />
     <Compile Include="Models\ShowVM.cs" />
+    <Compile Include="Models\SnippetListVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\embedded.css" />
     <Content Include="Content\prettifier\prettify.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -283,6 +272,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\snippet\editor.js" />
+    <Content Include="Scripts\snippet\taboverride.min.js" />
+    <Content Include="Scripts\snippet\previewSnippet.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -362,9 +354,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -372,6 +362,11 @@
     <Content Include="Views\Home\CreateSnippet.cshtml" />
     <Content Include="Views\Home\Show.cshtml" />
     <Content Include="Views\Home\DisplayTemplates\_SnippetContent.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Home\_PreviewSnippet.cshtml" />
+    <Content Include="Views\User\List.cshtml" />
+    <Content Include="Views\Home\Embedded.cshtml" />
+    <Content Include="Views\Shared\_EmbeddedLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -382,15 +377,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201403121130041_initial.resx">
-      <DependentUpon>201403121130041_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201403121149251_reInitial.resx">
-      <DependentUpon>201403121149251_reInitial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201403121156481_snippetAuthorCanBeNull.resx">
-      <DependentUpon>201403121156481_snippetAuthorCanBeNull.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\SnippetShare.Domain\SnippetShare.Domain.csproj">
+      <Project>{67269fac-1e16-4375-9e5c-a2daa4f924d9}</Project>
+      <Name>SnippetShare.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

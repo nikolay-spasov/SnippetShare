@@ -5,6 +5,7 @@
     using System.Web.Optimization;
     using System.Web.Routing;
     using SnippetShare.App_Start;
+    using SnippetShare.Instrastructure;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -16,6 +17,8 @@
             AreaRegistration.RegisterAllAreas();
 
             WebSecurityInitializer.Instance.EnsureInitialize();
+
+            ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
