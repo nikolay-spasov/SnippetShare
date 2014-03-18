@@ -3,7 +3,7 @@ namespace SnippetShare.Models
 {
     public class EditVM
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [MaxLength(256, ErrorMessage = "Title should be less than 256 characters")]
         public string Title { get; set; }

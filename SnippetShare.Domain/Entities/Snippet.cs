@@ -6,7 +6,8 @@
 
     public class Snippet
     {
-        public int Id { get; set; }
+        [Key]
+        public long Id { get; set; }
 
         [MaxLength(256)]
         public string Title { get; set; }

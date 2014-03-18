@@ -40,7 +40,7 @@
             db.SaveChanges();
         }
 
-        public Snippet GetById(int id)
+        public Snippet GetById(long id)
         {
             return db.Snippets.Find(id);
         }

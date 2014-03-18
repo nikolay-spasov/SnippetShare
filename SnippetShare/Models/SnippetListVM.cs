@@ -13,7 +13,7 @@
     {
         private string title;
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public DateTime DatePublished { get; set; }
         public string Title
         {

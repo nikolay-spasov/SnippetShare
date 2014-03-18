@@ -16,8 +16,8 @@
 
             routes.MapRoute(
                 name: "embedded",
-                url: "Embedded/{id}",
-                defaults: new { controller = "Home", action = "Embedded" });
+                url: "Embedded/{id}/{follow}",
+                defaults: new { controller = "Home", action = "Embedded", follow = UrlParameter.Optional });
 
             routes.MapRoute(
                 name: "Default",

@@ -19,6 +19,7 @@
 
 @Html.Label("Embedding code:")
 @Html.ShowEmbeddedCode(Url.Action("Embedded", "Home", new { id = Model.Id }, Request.Url.Scheme))
+<p>Append "/follow" to the iframe's src to navigate the user to here when he or she ctrl+click the iframe.</p>
 
 @section Scripts {
     @Scripts.Render("~/bundles/prettifier")

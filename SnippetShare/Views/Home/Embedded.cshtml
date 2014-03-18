@@ -6,12 +6,47 @@
 }
 
 @Html.DisplayFor(m => Model, "_SnippetContent")
+@Html.Hidden("absolute-url", Url.Action("Show", "Home", new { id = ViewBag.Id }, Request.Url.Scheme))
+@Html.Hidden("follow", (string)ViewBag.Follow)
 
 @section Scripts {
     @Scripts.Render("~/bundles/prettifier")
     <script>
-        window.onload = function () {
-            prettyPrint();
-        };
+        (function () {
+            'use strict';
+
+            var ctrlPressed = false
+              , snippetElement;
+
+            window.onload = function () {
+                prettyPrint();
+
+                if (document.getElementById('follow').value === 'follow') {
+                    snippetElement = document.getElementsByClassName('snippet')[0];
+                    snippetElement.setAttribute('tabindex', 0);
+                    snippetElement.focus();
+
+                    snippetElement.addEventListener('keydown', function (evt) {
+                        if (evt.keyCode === 17) {
+                            ctrlPressed = true;
+                        }
+                    }, false);
+
+                    snippetElement.addEventListener('keyup', function (evt) {
+                        if (evt.keyCode === 17) {
+                            ctrlPressed = false;
+                        }
+                    }, false);
+
+                    snippetElement.addEventListener('click', function () {
+                        if (ctrlPressed) {
+                            var url = document.getElementById('absolute-url').value;
+                            window.top.location.href = url;
+                        }
+                    }, false);
+                }
+            };
+
+        })();
     </script>
 }

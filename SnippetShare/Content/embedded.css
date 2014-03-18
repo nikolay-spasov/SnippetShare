@@ -10,6 +10,7 @@
     max-height: 600px;
     overflow: auto;*/
     background-color: white;
+    outline: none;
 }
 
 .prettyprint code {

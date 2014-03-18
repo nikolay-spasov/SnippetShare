@@ -7,7 +7,7 @@
     {
         IQueryable<Snippet> Snippets { get; }
 
-        Snippet GetById(int id);
+        Snippet GetById(long id);
 
         void Update(Snippet snippetToUpdate);
 

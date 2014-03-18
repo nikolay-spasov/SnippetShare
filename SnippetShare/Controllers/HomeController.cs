@@ -61,7 +61,7 @@
             }
         }
 
-        public ActionResult Show(int id)
+        public ActionResult Show(long id)
         {
             Snippet snippet = this.snippetRepo.Snippets
                 .IncludeMultiple(x => x.User)
@@ -84,14 +84,16 @@
             return View(viewModel);
         }
 
-        public ActionResult Embedded(int id)
+        public ActionResult Embedded(long id, string follow = "no-follow")
         {
             Snippet snippet = this.snippetRepo.GetById(id);
+            ViewBag.Id = id;
+            ViewBag.Follow = follow;
 
             return View((object)snippet.Content);
         }
 
-        public PartialViewResult Raw(int id)
+        public PartialViewResult Raw(long id)
         {
             Snippet snippet = this.snippetRepo.GetById(id);
 
@@ -110,7 +112,7 @@
         }
 
         [Authorize]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
             var snippet = this.snippetRepo.GetById(id);
             int? userId = snippet.UserId;

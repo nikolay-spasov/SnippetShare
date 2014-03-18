@@ -39,7 +39,7 @@
         public void CanShowSnippetRaw()
         {
             Mock<ISnippetRepository> repo = new Mock<ISnippetRepository>();
-            repo.Setup(m => m.GetById(It.Is<int>(x => x == 1)))
+            repo.Setup(m => m.GetById(It.Is<long>(x => x == 1)))
                 .Returns(new Snippet { Id = 1, Title = "T1", Content = "C1", UserId = null, User = null });
 
             Mock<IWebSecurity> webSec = new Mock<IWebSecurity>();
@@ -57,7 +57,7 @@
         public void CanShowSnippetEmbedded()
         {
             Mock<ISnippetRepository> repo = new Mock<ISnippetRepository>();
-            repo.Setup(m => m.GetById(It.Is<int>(x => x == 1)))
+            repo.Setup(m => m.GetById(It.Is<long>(x => x == 1)))
                 .Returns(new Snippet { Id = 1, Title = "T1", Content = "C1", UserId = null, User = null });
 
             Mock<IWebSecurity> webSec = new Mock<IWebSecurity>();
@@ -81,7 +81,7 @@
                 UserId = 1
             };
             Mock<ISnippetRepository> repo = new Mock<ISnippetRepository>();
-            repo.Setup(m => m.GetById(It.Is<int>(x => x == 1))).Returns(sn);
+            repo.Setup(m => m.GetById(It.Is<long>(x => x == 1))).Returns(sn);
 
             var snippet = new Snippet();
             repo.Setup(m => m.Update(It.Is<Snippet>(x => x.Id == 1))).Callback<Snippet>(x =>
@@ -119,7 +119,7 @@
                 UserId = 1
             };
             Mock<ISnippetRepository> repo = new Mock<ISnippetRepository>();
-            repo.Setup(m => m.GetById(It.Is<int>(x => x == 1))).Returns(sn);
+            repo.Setup(m => m.GetById(It.Is<long>(x => x == 1))).Returns(sn);
 
             var snippet = new Snippet();
             repo.Setup(m => m.Update(It.Is<Snippet>(x => x.Id == 1))).Callback<Snippet>(x =>
