@@ -786,3 +786,12 @@ tr.pager td {
 #author-name {
     font-weight: bold;
 }
+
+.pager {
+    margin-top: 20px;
+}
+
+    .pager .selected {
+        background-color: gray;
+        color: white;
+    }

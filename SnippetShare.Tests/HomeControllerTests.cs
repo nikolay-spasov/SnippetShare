@@ -1,15 +1,14 @@
 ﻿namespace SnippetShare.Tests
 {
-    using System;
+    using System.Linq;
+    using System.Web.Mvc;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using SnippetShare.Domain.Repositories.Abstract;
-    using SnippetShare.Domain.Entities;
     using SnippetShare.Controllers;
-    using System.Web.Mvc;
-    using SnippetShare.Models;
-    using System.Linq;
+    using SnippetShare.Domain.Entities;
+    using SnippetShare.Domain.Repositories.Abstract;
     using SnippetShare.Instrastructure;
+    using SnippetShare.Models;
 
     [TestClass]
     public class HomeControllerTests
@@ -47,7 +46,7 @@
 
             HomeController controller = new HomeController(repo.Object, webSec.Object);
 
-            var result = (controller.Raw(1) as PartialViewResult);
+            var result = controller.Raw(1) as PartialViewResult;
             var model = result.Model as string;
 
             Assert.AreEqual("~/Views/Home/DisplayTemplates/_SnippetContent.cshtml", result.ViewName);
@@ -65,7 +64,7 @@
 
             HomeController controller = new HomeController(repo.Object, webSec.Object);
 
-            var result = (controller.Embedded(1) as ViewResult);
+            var result = controller.Embedded(1) as ViewResult;
             var model = result.Model as string;
 
             Assert.AreEqual("C1", model);

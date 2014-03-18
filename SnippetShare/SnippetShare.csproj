@@ -199,6 +199,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PagingHelpers.cs" />
     <Compile Include="Instrastructure\IWebSecurity.cs" />
     <Compile Include="Instrastructure\NinjectControllerFactory.cs" />
     <Compile Include="Instrastructure\WebSecurityWrapper.cs" />

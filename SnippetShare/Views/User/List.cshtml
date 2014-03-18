@@ -1,12 +1,16 @@
-﻿@model List<SnippetShare.Models.SnippetListVM>
+﻿@model SnippetShare.Models.SnippetListVM
 @{
     ViewBag.Title = "List";
 }
 
 <h2>My Snippets</h2>
 
-@foreach (var snippet in Model)
+@foreach (var snippet in Model.Snippets)
 {
     <h3>@Html.ActionLink(snippet.Title, "Show", "Home", new { id = snippet.Id }, null)</h3>
     <span>Posted @Html.ToFriendlyDate(snippet.DatePublished)</span>
 }
+
+<div class="pager">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))
+</div>

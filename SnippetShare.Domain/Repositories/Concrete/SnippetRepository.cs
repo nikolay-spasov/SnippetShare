@@ -1,9 +1,9 @@
 ﻿namespace SnippetShare.Domain.Repositories.Concrete
 {
-    using SnippetShare.Domain.Entities;
-    using SnippetShare.Domain.Repositories.Abstract;
     using System.Linq;
     using System.Data.Entity;
+    using SnippetShare.Domain.Entities;
+    using SnippetShare.Domain.Repositories.Abstract;
 
     public class SnippetRepository : ISnippetRepository
     {
