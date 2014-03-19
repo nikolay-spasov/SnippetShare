@@ -9,6 +9,8 @@
     using SnippetShare.Domain.Repositories.Abstract;
     using SnippetShare.Instrastructure;
     using SnippetShare.Models;
+using System.Web;
+    using System;
 
     [TestClass]
     public class HomeControllerTests
@@ -140,10 +142,23 @@
             };
 
             var controller = new HomeController(repo.Object, webSec.Object);
-            var result = controller.Edit(vm);
-            
-            Assert.IsInstanceOfType(result, typeof(HttpNotFoundResult));
-            Assert.IsNotNull(result as HttpNotFoundResult);
+
+            Exception resultException = null;
+            try
+            {
+                var result = controller.Edit(vm);
+            }
+            catch (Exception e)
+            {
+                resultException = e;
+            }
+            finally
+            {
+                var httpException = resultException as HttpException;
+
+                Assert.IsNotNull(httpException);
+                Assert.AreEqual(401, httpException.GetHttpCode());
+            }
         }
 
         [TestMethod]

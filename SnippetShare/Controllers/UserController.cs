@@ -9,6 +9,7 @@
     using SnippetShare.Domain.Repositories.Concrete;
     using SnippetShare.Instrastructure;
 
+    [Authorize]
     public class UserController : Controller
     {
         private const int PageSize = 10;
