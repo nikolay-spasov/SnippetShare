@@ -1,6 +1,8 @@
-﻿using WebMatrix.WebData;
-namespace SnippetShare.Instrastructure
+﻿namespace SnippetShare.Instrastructure.WebSecurity.Concrete
 {
+    using WebMatrix.WebData;
+    using SnippetShare.Instrastructure.WebSecurity;
+
     public class WebSecurityWrapper : IWebSecurity
     {
         public bool Login(string userName, string password, bool persistCookie = false)

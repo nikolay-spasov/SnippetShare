@@ -8,7 +8,7 @@
     using SnippetShare.Domain.Repositories.Abstract;
     using SnippetShare.Domain.Entities;
     using SnippetShare.Domain.Repositories.Concrete;
-    using SnippetShare.Instrastructure;
+    using SnippetShare.Instrastructure.WebSecurity;
     using System.Web;
 
     public class HomeController : Controller
@@ -65,7 +65,7 @@
 
             if (snippet == null)
             {
-                throw new HttpException(404, "Not found");
+                return HttpNotFound("Snippet with id " + id + " was not found");
             }
 
             ShowVM viewModel = new ShowVM
@@ -90,7 +90,7 @@
             Snippet snippet = this.snippetRepo.GetById(id);
             if (snippet == null)
             {
-                throw new HttpException(404, "Not found");
+                return HttpNotFound("Snippet with id " + id + " was not found");
             }
 
             ViewBag.Id = id;
@@ -99,12 +99,12 @@
             return View((object)snippet.Content);
         }
 
-        public PartialViewResult Raw(long id)
+        public ActionResult Raw(long id)
         {
             Snippet snippet = this.snippetRepo.GetById(id);
             if (snippet == null)
             {
-                throw new HttpException(404, "Not found");
+                return HttpNotFound("Snippet with id " + id + " was not found");
             }
 
             return PartialView(
@@ -127,13 +127,13 @@
             var snippet = this.snippetRepo.GetById(id);
             if (snippet == null)
             {
-                throw new HttpException(404, "Not found");
+                return HttpNotFound("Snippet with id " + id + " was not found");
             }
 
             int? userId = snippet.UserId;
             if (userId == null || userId != webSecurity.CurrentUserId)
             {
-                throw new HttpException(401, "Unauthorized");
+                return new HttpUnauthorizedResult("User is performing unautorized action");
             }
 
             var vm = new EditVM
@@ -155,13 +155,13 @@
             var dbSnippet = this.snippetRepo.GetById(snippet.Id);
             if (dbSnippet == null)
             {
-                throw new HttpException(404, "Not found");
+                return HttpNotFound("Snippet with id " + snippet.Id + " was not found");
             }
 
             int? userId = dbSnippet.UserId;
             if (userId == null || userId != webSecurity.CurrentUserId)
             {
-                throw new HttpException(401, "Unauthorized");
+                return new HttpUnauthorizedResult("User is performing unautorized action");
             }
 
             if (ModelState.IsValid)

@@ -1,4 +1,4 @@
-﻿namespace SnippetShare.Instrastructure
+﻿namespace SnippetShare.Instrastructure.WebSecurity
 {
     public interface IWebSecurity
     {

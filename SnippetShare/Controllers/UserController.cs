@@ -7,7 +7,7 @@
     using System.Web.Mvc;
     using WebMatrix.WebData;
     using SnippetShare.Domain.Repositories.Concrete;
-    using SnippetShare.Instrastructure;
+    using SnippetShare.Instrastructure.WebSecurity;
 
     [Authorize]
     public class UserController : Controller

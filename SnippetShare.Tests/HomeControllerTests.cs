@@ -1,5 +1,7 @@
 ﻿namespace SnippetShare.Tests
 {
+    using System;
+    using System.Web;
     using System.Linq;
     using System.Web.Mvc;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -7,10 +9,8 @@
     using SnippetShare.Controllers;
     using SnippetShare.Domain.Entities;
     using SnippetShare.Domain.Repositories.Abstract;
-    using SnippetShare.Instrastructure;
+    using SnippetShare.Instrastructure.WebSecurity;
     using SnippetShare.Models;
-using System.Web;
-    using System;
 
     [TestClass]
     public class HomeControllerTests
@@ -24,9 +24,7 @@ using System.Web;
                 new Snippet { Id = 1, Title = "T1", Content = "C1", UserId = null, User = null },
             }.AsQueryable());
 
-            Mock<IWebSecurity> webSec = new Mock<IWebSecurity>();
-
-            HomeController controller = new HomeController(repo.Object, webSec.Object);
+            HomeController controller = new HomeController(repo.Object, null);
 
             var result = (controller.Show(1) as ViewResult).Model as ShowVM;
 
@@ -62,9 +60,7 @@ using System.Web;
             repo.Setup(m => m.GetById(It.Is<long>(x => x == 1)))
                 .Returns(new Snippet { Id = 1, Title = "T1", Content = "C1", UserId = null, User = null });
 
-            Mock<IWebSecurity> webSec = new Mock<IWebSecurity>();
-
-            HomeController controller = new HomeController(repo.Object, webSec.Object);
+            HomeController controller = new HomeController(repo.Object, null);
 
             var result = controller.Embedded(1) as ViewResult;
             var model = result.Model as string;
@@ -142,34 +138,16 @@ using System.Web;
             };
 
             var controller = new HomeController(repo.Object, webSec.Object);
+            var result = controller.Edit(vm) as HttpUnauthorizedResult;
 
-            Exception resultException = null;
-            try
-            {
-                var result = controller.Edit(vm);
-            }
-            catch (Exception e)
-            {
-                resultException = e;
-            }
-            finally
-            {
-                var httpException = resultException as HttpException;
-
-                Assert.IsNotNull(httpException);
-                Assert.AreEqual(401, httpException.GetHttpCode());
-            }
+            Assert.IsNotNull(result);
+            Assert.AreEqual(401, result.StatusCode);
         }
 
         [TestMethod]
         public void CanPreviewSnippet()
         {
-            Mock<ISnippetRepository> repo = new Mock<ISnippetRepository>();
-
-            Mock<IWebSecurity> webSec = new Mock<IWebSecurity>();
-            webSec.Setup(m => m.CurrentUserId).Returns(1);
-
-            var controller = new HomeController(repo.Object, webSec.Object);
+            var controller = new HomeController(null, null);
 
             var result = controller.Preview("C1") as PartialViewResult;
             var model = result.Model as string;
@@ -177,6 +155,22 @@ using System.Web;
 
             Assert.AreEqual("C1", model);
             Assert.AreEqual("~/Views/Home/DisplayTemplates/_SnippetContent.cshtml", viewName);
+        }
+
+        [TestMethod]
+        public void InvalidSnippetIdShouldReturn404NotFound()
+        {
+            Mock<ISnippetRepository> repo = new Mock<ISnippetRepository>();
+            repo.Setup(m => m.Snippets).Returns(new Snippet[]
+            {
+                new Snippet { Id = 1, Title = "T1", Content = "C1", DatePublished = DateTime.Now, UserId = 1 },
+            }.AsQueryable<Snippet>);
+
+            var controller = new HomeController(repo.Object, null);
+            var result = controller.Show(2) as HttpNotFoundResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(404, result.StatusCode);
         }
     }
 }

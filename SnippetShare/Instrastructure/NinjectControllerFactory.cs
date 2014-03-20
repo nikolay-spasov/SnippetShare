@@ -1,11 +1,13 @@
 ﻿namespace SnippetShare.Instrastructure
 {
-    using Ninject;
-    using SnippetShare.Domain.Repositories.Abstract;
-    using SnippetShare.Domain.Repositories.Concrete;
     using System;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using Ninject;
+    using SnippetShare.Domain.Repositories.Abstract;
+    using SnippetShare.Domain.Repositories.Concrete;
+    using SnippetShare.Instrastructure.WebSecurity;
+    using SnippetShare.Instrastructure.WebSecurity.Concrete;
 
     public class NinjectControllerFactory : DefaultControllerFactory
     {
