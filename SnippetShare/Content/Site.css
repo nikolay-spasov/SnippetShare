@@ -791,6 +791,10 @@ tr.pager td {
     margin-top: 20px;
 }
 
+    .pager a {
+        text-decoration: none;
+    }
+
     .pager .selected {
         background-color: gray;
         color: white;

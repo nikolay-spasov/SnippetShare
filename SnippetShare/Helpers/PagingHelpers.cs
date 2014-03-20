@@ -11,6 +11,14 @@
             PagingInfo pagingInfo, Func<int, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
+            if (pagingInfo.CurrentPage - 1 > 0)
+            {
+                TagBuilder prevPage = new TagBuilder("a");
+                prevPage.MergeAttribute("href", pageUrl(pagingInfo.CurrentPage - 1));
+                prevPage.InnerHtml = "&lt;";
+                result.Append(prevPage.ToString());
+            }
+
             for (int i = 1; i <= pagingInfo.TotalPages; i++)
             {
                 TagBuilder tag = new TagBuilder("a");
@@ -20,6 +28,15 @@
                     tag.AddCssClass("selected");
                 result.Append(tag.ToString());
             }
+
+            if (pagingInfo.CurrentPage + 1 <= pagingInfo.TotalPages)
+            {
+                TagBuilder nextPage = new TagBuilder("a");
+                nextPage.MergeAttribute("href", pageUrl(pagingInfo.CurrentPage + 1));
+                nextPage.InnerHtml = "&gt;";
+                result.Append(nextPage.ToString());
+            }
+
             return MvcHtmlString.Create(result.ToString());
         }
     }
